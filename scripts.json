@@ -5,17 +5,20 @@
       "desc": "Run Dino server.",
       "allow": ["env", "run", "net", "read"],
       "unstable": true
-    }
-  },
-  "logger": {
-    "fullscreen": true,     
-    "debug": true
+    },
+	"format": {
+		"cmd": "deno fmt"
+	}
   },
    "watcher": {
     "interval": 350,
     "exts": ["js", "jsx", "ts", "tsx", "json", "ejs", "md", "css"],
     "match": ["**/*.*"],
-    "skip": ["**/.git/**"],
-    "legacy": false
+    "skip": ["**/.git/**"]
+  },
+  "logger": {
+    "fullscreen": true,     
+    "debug": true,
+    "quiet": false
   }
 }
