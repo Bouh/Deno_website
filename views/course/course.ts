@@ -7,7 +7,6 @@ router
   .get(function (req, res, next) {
     const fileName = `${Deno.cwd()}/files/courses/` + req.params.courseName +
       `/` + req.params.chapter + `.md`;
-    console.log(fileName);
     const decoder = new TextDecoder("utf-8");
 
     if (!existsSync(fileName)) res.redirect("/error");
