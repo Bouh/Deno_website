@@ -1,0 +1,10 @@
+body {
+
+  padding: 10px 25px;
+  font-size: 14px;
+  font-family: "PT Sans", Arial, sans-serif;
+}
+
+#header{
+  background-color: red;
+}

@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "start": {
+      "cmd": "deno run server.ts",
+      "desc": "Run Dino server.",
+      "allow": ["env", "run", "net", "read"],
+      "unstable": true
+    }
+  },
+  "logger": {
+    "fullscreen": true,     
+    "debug": true
+  },
+   "watcher": {
+    "interval": 350,
+    "exts": ["js", "jsx", "ts", "tsx", "json", "ejs", "md", "css"],
+    "match": ["**/*.*"],
+    "skip": ["*/.git/*"],
+    "legacy": false
+  }
+}
