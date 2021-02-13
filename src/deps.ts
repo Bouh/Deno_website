@@ -17,3 +17,16 @@ export type {
   Response,
 } from "https://deno.land/x/opine@1.1.0/src/types.ts";
 export type { IError } from "https://deno.land/x/http_errors@2.1.0/mod.ts";
+
+export async function watchChanges(
+  path: string,
+  onChange: Function,
+) {
+  const watcher = Deno.watchFs(path);
+
+  for await (const event of watcher) {
+    if (event.kind === "modify") {
+      onChange();
+    }
+  }
+}

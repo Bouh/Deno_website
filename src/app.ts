@@ -11,16 +11,23 @@ import {
   Response,
   serveStatic,
   urlencoded,
+  watchChanges,
 } from "./deps.ts";
+
+/*
+await watchChanges(".", () => {
+    console.log("File change detected.");
+})
+*/
 
 import indexRouter from "./views/index/index.ts";
 import usersRouter from "./views/users/users.ts";
 import courseRouter from "./views/course/course.ts";
 
 const app = opine();
-
+console.log(Deno.cwd() + "\src\views");
 // View engine setup
-app.set("views", `${Deno.cwd()}/views`);
+app.set("views", Deno.cwd() + "/src/views/");
 app.set("view engine", "ejs");
 app.engine("ejs", renderFileToString);
 

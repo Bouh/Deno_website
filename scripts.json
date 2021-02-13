@@ -1,14 +1,24 @@
 {
   "scripts": {
     "start": {
-      "cmd": "deno run server.ts",
+      "cmd": "deno run scripts/server.ts",
+      "desc": "Run Dino server.",
+      "allow": ["env", "run", "net", "read"],
+      "unstable": true
+    },
+	"hotreload": {
+      "cmd": "deno run scripts/hotreload.ts",
       "desc": "Run Dino server.",
       "allow": ["env", "run", "net", "read"],
       "unstable": true
     },
 	"format": {
 		"cmd": "deno fmt"
-	}
+	},
+    "linter": {
+      "cmd": "deno lint",
+      "unstable": true
+    }
   },
    "watcher": {
     "interval": 350,
