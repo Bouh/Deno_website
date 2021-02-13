@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= message %></title>
-	<%- await include('src/views/components/head.ejs') %>
-  </head>
-  <body>
-    <h1><%= message %></h1>
-    <h2><%= error.status %></h2>
-    <pre><%= error.stack %></pre>
-  </body>
+    <head>
+        <title><%= message %></title>
+        <%- await include('src/views/components/head.ejs') %>
+    </head>
+    <body>
+        <h1><%= message %></h1>
+        <h2><%= error.status %></h2>
+        <pre><%= error.stack %></pre>
+    </body>
 </html>

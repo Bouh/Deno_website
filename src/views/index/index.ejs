@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-	<%- await include('src/views/components/head.ejs') %>
-  </head>
-  <body>
-	<%- await include('src/views/components/header.ejs') %>
-    <h1><%= title %></h1>
-    <p id="menu" >Welcome to <%= title %>!</p>
-  </body>
+    <head>
+        <title><%= title %></title>
+        <%- await include('src/views/components/head.ejs', {scriptHotReload}) %>
+    </head>
+    <body>
+        <%- await include('src/views/components/header.ejs') %>
+        <p>Hot reload script loaded: <b><%= scriptHotReload%></b></p>
+    </body>
 </html>

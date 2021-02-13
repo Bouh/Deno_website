@@ -1,5 +1,5 @@
 import 'https://deno.land/x/dotenv/load.ts';
-import { watchChanges } from '../src/deps.ts';
+import { watchChanges, WEBSOCKET_PORT, WEBSOCKET_HOST } from '../src/deps.ts';
 import { serve } from 'https://deno.land/std/http/server.ts';
 import {
     acceptable,
@@ -11,25 +11,25 @@ interface Connection {
     ws: WebSocket;
 }
 
-const port = Deno.env.get('WEBSOCKET_PORT') ?? '7000';
-const host = Deno.env.get('WEBSOCKET_HOST') ?? '127.0.0.1';
+export async function webSocketServerHotReload(enabled = true) {
+    if (!enabled) return;
+    const connections = new Array<Connection>();
 
-const connections = new Array<Connection>();
-
-console.log('Server is started at http://127.0.0.1:7000');
-for await (const req of serve(host + ':' + port)) {
-    if (acceptable(req)) {
-        const { conn, headers, w: bufWriter, r: bufReader } = req;
-        acceptWebSocket({ conn, headers, bufReader, bufWriter }).then(
-            async (ws: WebSocket) => {
-                await watchChanges('.', () => {
-                    connections.forEach((connection) => {
-                        if (connection.ws !== ws) {
-                            connection.ws.send('reload');
-                        }
+    console.log('Server is started at http://'+WEBSOCKET_HOST + ':' + WEBSOCKET_PORT);
+    for await (const req of serve(WEBSOCKET_HOST + ':' + WEBSOCKET_PORT)) {
+        if (acceptable(req)) {
+            const { conn, headers, w: bufWriter, r: bufReader } = req;
+            acceptWebSocket({ conn, headers, bufReader, bufWriter }).then(
+                async (ws: WebSocket) => {
+                    await watchChanges('.', () => {
+                        connections.forEach((connection) => {
+                            if (connection.ws !== ws) {
+                                connection.ws.send('reload');
+                            }
+                        });
                     });
-                });
-            }
-        );
+                }
+            );
+        }
     }
 }

@@ -1,35 +1,30 @@
 import {
-  createError,
-  dirname,
-  IError,
-  join,
-  json,
-  NextFunction,
-  opine,
-  renderFileToString,
-  Request,
-  Response,
-  serveStatic,
-  urlencoded,
-  watchChanges,
-} from "./deps.ts";
+    createError,
+    dirname,
+    IError,
+    join,
+    json,
+    NextFunction,
+    opine,
+    renderFileToString,
+    Request,
+    Response,
+    serveStatic,
+    urlencoded,
+    watchChanges,
+    ENV,
+} from './deps.ts';
 
-/*
-await watchChanges(".", () => {
-    console.log("File change detected.");
-})
-*/
-
-import indexRouter from "./views/index/index.ts";
-import usersRouter from "./views/users/users.ts";
-import courseRouter from "./views/course/course.ts";
+import indexRouter from './views/index/index.ts';
+import usersRouter from './views/users/users.ts';
+import courseRouter from './views/course/course.ts';
 
 const app = opine();
-console.log(Deno.cwd() + "\src\views");
+
 // View engine setup
-app.set("views", Deno.cwd() + "/src/views/");
-app.set("view engine", "ejs");
-app.engine("ejs", renderFileToString);
+app.set('views', Deno.cwd() + '/src/views/');
+app.set('view engine', 'ejs');
+app.engine('ejs', renderFileToString);
 
 // Handle different incoming body types
 app.use(json());
@@ -40,28 +35,31 @@ app.use(urlencoded());
 app.use(serveStatic(`${Deno.cwd()}/public`));
 
 // Mount our routers
-app.use("/", indexRouter);
-app.use("/users/", usersRouter);
-app.use("/course/", courseRouter);
+app.use('/', indexRouter);
+app.use('/users/', usersRouter);
+app.use('/course/', courseRouter);
 
 // Handling HTTP errors
 // catch 404 and forward to error handler
 
 app.use((req, res, next) => {
-  next(createError(404));
+    next(createError(404));
 });
 
 // Error handler
-app.use(
-  function (err: IError, req: Request, res: Response, next: NextFunction) {
+app.use(function (
+    err: IError,
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
     // Set locals, only providing error in development
     res.locals.message = err.message;
-    res.locals.error = req.app.get("env") === "development" ? err : {};
+    res.locals.error = ENV ? err : {};
 
     // Render the error page
     res.setStatus(err.status || 500);
-    res.render("error");
-  },
-);
+    res.render('error');
+});
 
 export default app;

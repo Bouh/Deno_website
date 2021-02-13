@@ -1,34 +1,34 @@
 {
-  "scripts": {
-    "start": {
-      "cmd": "deno run scripts/server.ts",
-      "desc": "Run Dino server.",
-      "allow": ["env", "run", "net", "read"],
-      "unstable": true
+    "scripts": {
+        "start": {
+            "cmd": "deno run scripts/server.ts",
+            "desc": "Run Dino server.",
+            "allow": ["env", "run", "net", "read"],
+            "unstable": true
+        },
+        "hotreload": {
+            "cmd": "deno run scripts/hotreload.ts",
+            "desc": "Run Dino server.",
+            "allow": ["env", "run", "net", "read"],
+            "unstable": true
+        },
+        "format": {
+            "cmd": "deno fmt"
+        },
+        "linter": {
+            "cmd": "deno lint",
+            "unstable": true
+        }
     },
-	"hotreload": {
-      "cmd": "deno run scripts/hotreload.ts",
-      "desc": "Run Dino server.",
-      "allow": ["env", "run", "net", "read"],
-      "unstable": true
+    "watcher": {
+        "interval": 350,
+        "exts": ["js", "jsx", "ts", "tsx", "json", "ejs", "md", "css", "env"],
+        "match": ["**/*.*"],
+        "skip": ["**/.git/**"]
     },
-	"format": {
-		"cmd": "deno fmt"
-	},
-    "linter": {
-      "cmd": "deno lint",
-      "unstable": true
+    "logger": {
+        "fullscreen": true,
+        "debug": true,
+        "quiet": false
     }
-  },
-   "watcher": {
-    "interval": 350,
-    "exts": ["js", "jsx", "ts", "tsx", "json", "ejs", "md", "css"],
-    "match": ["**/*.*"],
-    "skip": ["**/.git/**"]
-  },
-  "logger": {
-    "fullscreen": true,     
-    "debug": true,
-    "quiet": false
-  }
 }
